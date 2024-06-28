@@ -1,24 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import { createContext, useEffect, useState } from "react";
+import Sidebar from "./components/sidebar/index";
+import NotesContainer from "./components/container/index";
+
+export const NotesContext = createContext(null);
 
 function App() {
+  const [notes, setNotes] = useState(() => {
+    const notes = localStorage.getItem("notes-data");
+    return notes ? JSON.parse(notes) : [];
+  });
+  
+  const addNote = (theme) => {
+    setNotes([
+      {
+        id: Math.random().toString(36),
+        text: "",
+        theme,
+        timestamp: +new Date(),
+        editmode: true
+      },
+      ...notes
+    ]);
+  };
+
+  const deleteNote = (id) => {
+    setNotes(notes.filter(note => note.id !== id));
+  };
+
+  const saveNote = (id, text) => {
+    const note = notes.find(note => note.id === id);
+    note.text = text;
+    note.editmode = false;
+    setNotes([...notes]);
+  };
+  useEffect(() => {
+    localStorage.setItem("notes-data", JSON.stringify(notes));
+    }, [notes]);
+
+  const value = { notes, addNote, deleteNote, saveNote };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <NotesContext.Provider value={value}>
+      <div className="notes-app">
+        <Sidebar />
+        <NotesContainer />
+      </div>
+    </NotesContext.Provider>
   );
 }
 
