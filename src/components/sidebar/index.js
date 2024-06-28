@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
+import './style.css';
 import { NotesContext } from "../../App";
-// import './style.css';
 const colors = ["#ebcfad", "#f5b0a4", "#84dada", "#eff5b1", "#9adbf6"];
 function Sidebar() {
     const {addNote} = useContext(NotesContext);

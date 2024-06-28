@@ -1,0 +1,26 @@
+.notes-app .notes-container{
+   padding: 1.5em;
+}
+.notes-app .notes-container h2{
+   font-size: 2.5em;
+   font-family: 'Dancing Script', cursive;
+   color: #111;
+}
+.notes-app .notes-container .notes-list{
+    margin-top: 1em;
+   display: grid;
+   grid-template-columns: repeat(3,1fr);
+   grid-gap: 1em;
+}
+@media screen and (max-width: 768px){
+   .notes-app .notes-container .notes-list{
+       grid-template-columns: repeat(2,1fr);
+   }
+   
+}
+@media screen and (max-width: 480px){
+   .notes-app .notes-container .notes-list{
+       grid-template-columns: 1fr;
+   }
+   
+}

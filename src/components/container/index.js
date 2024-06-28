@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { NotesContext } from "../../App"; // Correct import path
+import './style.css';
 import Note from "../note/index";
 
 function NotesContainer() {
